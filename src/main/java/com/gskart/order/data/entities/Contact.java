@@ -1,19 +1,23 @@
 package com.gskart.order.data.entities;
 
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
 import lombok.Data;
 
 import java.util.List;
+import java.util.Set;
 
 @Data
 @Entity(name = "contacts")
 public class Contact extends BaseEntity {
+    @Column(length = 64)
     private String firstName;
+
+    @Column(length = 64)
     private String lastName;
-    private String emailId;
+
+    @ElementCollection
+    @Column(length = 160)
+    private Set<String> emailIds;
 
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<PhoneNumber> phoneNumbers;
@@ -21,6 +25,7 @@ public class Contact extends BaseEntity {
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<Address> addresses;
 
+    @Enumerated(EnumType.ORDINAL)
     private Type type;
 
     public enum Type{

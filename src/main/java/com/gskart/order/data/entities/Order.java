@@ -1,9 +1,6 @@
 package com.gskart.order.data.entities;
 
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
 import lombok.Data;
 
 import java.time.OffsetDateTime;
@@ -12,8 +9,14 @@ import java.util.List;
 @Data
 @Entity(name = "orders")
 public class Order extends BaseEntity{
+    @Column(length = 160)
     private String placedBy;
     private OffsetDateTime placedOn;
+
+    @Column(length = 36)
+    private String cartId;
+
+    @Enumerated(EnumType.ORDINAL)
     private Status status;
 
     @OneToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
@@ -29,3 +32,4 @@ public class Order extends BaseEntity{
         DELIVERED
     }
 }
+

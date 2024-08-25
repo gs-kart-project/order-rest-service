@@ -3,7 +3,7 @@ package com.gskart.order.DTOs.responses;
 import lombok.Data;
 
 @Data
-public class OrderResponse extends ErrorResponse {
+public class OrderPlacedResponse extends ErrorResponse {
     private String orderId;
-    private String status;
+    private String orderStatus;
 }
