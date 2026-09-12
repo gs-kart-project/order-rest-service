@@ -105,7 +105,6 @@ public class OrderService implements IOrderService {
             order.setPaymentDetails(new ArrayList<>());
         }
 
-        // Update paymentDetails
         Order finalOrder = order;
         paymentDetails.forEach(paymentDetail -> {
             Optional<PaymentDetail> existingPaymentDetailsOptional = finalOrder.getPaymentDetails().stream()
@@ -120,9 +119,6 @@ public class OrderService implements IOrderService {
                 existingPaymentDetail.getBillContact().setFirstName(paymentDetail.getBillContact().getFirstName());
                 existingPaymentDetail.getBillContact().setLastName(paymentDetail.getBillContact().getLastName());
                 existingPaymentDetail.getBillContact().setEmailIds(paymentDetail.getBillContact().getEmailIds());
-
-                // Update Addresses
-
 
                 if (paymentDetail.getBillContact().getAddresses() != null) {
                     if (existingPaymentDetail.getBillContact().getAddresses() == null) {
@@ -155,7 +151,6 @@ public class OrderService implements IOrderService {
                 }
 
 
-                // Update Phone numbers
                 if (paymentDetail.getBillContact().getPhoneNumbers() != null) {
                     if (existingPaymentDetail.getBillContact().getPhoneNumbers() == null) {
                         existingPaymentDetail.getBillContact().setPhoneNumbers(new ArrayList<>());

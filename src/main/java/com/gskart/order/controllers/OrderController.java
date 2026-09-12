@@ -36,11 +36,9 @@ public class OrderController {
     public ResponseEntity<OrderPlacedResponse> placeOrder(@RequestBody OrderRequest orderRequest) {
         OrderPlacedResponse orderPlacedResponse = new OrderPlacedResponse();
         try {
-            // 1. Save order details
             Order order = this.orderMapper.orderRequestToOrderEntity(orderRequest);
             order = this.orderService.saveOrder(order);
 
-            // 2. Save delivery details by mapping ordered items list.
             List<DeliveryDetail> deliveryDetailList = new ArrayList<>();
             for (DeliveryDetailDto deliveryDetailDto : orderRequest.getDeliveryDetails()) {
                 DeliveryDetail deliveryDetail = new DeliveryDetail();
@@ -57,7 +55,6 @@ public class OrderController {
             }
             orderService.saveDeliveryDetails(deliveryDetailList);
 
-            // 3. Create order response
             orderPlacedResponse.setOrderId(order.getId());
             orderPlacedResponse.setStatus(order.getStatus().name());
             return ResponseEntity.ok(orderPlacedResponse);
